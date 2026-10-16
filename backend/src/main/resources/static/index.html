@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>StudyMarket — Study. Trade. Master.</title>
+<link rel="stylesheet" href="css/styles.css" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#128218;</text></svg>" />
+</head>
+<body data-zone="light">
+  <div id="app">
+    <aside class="sidebar">
+      <div class="brand" id="brand" title="StudyMarket">
+        <span class="brand-mark">&#128218;</span>
+        <span class="brand-name">Study<strong>Market</strong></span>
+      </div>
+
+      <nav class="nav" id="mainNav" aria-label="Main">
+        <a href="#/" data-route="#/" class="nav-item"><span class="nav-ico">&#9632;</span> Dashboard</a>
+        <a href="#/study" data-route="#/study" class="nav-item"><span class="nav-ico">&#9201;</span> Study</a>
+        <a href="#/assessments" data-route="#/assessments" class="nav-item"><span class="nav-ico">&#10003;</span> Assessments</a>
+        <a href="#/challenges" data-route="#/challenges" class="nav-item"><span class="nav-ico">&#9873;</span> Challenges</a>
+        <a href="#/leaderboard" data-route="#/leaderboard" class="nav-item"><span class="nav-ico">&#127942;</span> Leaderboard</a>
+        <a href="#/friends" data-route="#/friends" class="nav-item"><span class="nav-ico">&#9829;</span> Friends</a>
+      </nav>
+
+      <div class="vault-group" id="vaultGroup" hidden>
+        <div class="vault-group-label">// classified terminal</div>
+        <a href="#/market" data-route="#/market" class="nav-item vault-item"><span class="nav-ico">&#9670;</span> Market</a>
+        <a href="#/trade" data-route="#/trade" class="nav-item vault-item"><span class="nav-ico">&#8645;</span> Trade</a>
+        <a href="#/portfolio" data-route="#/portfolio" class="nav-item vault-item"><span class="nav-ico">&#128188;</span> Portfolio</a>
+        <a href="#/stats" data-route="#/stats" class="nav-item vault-item"><span class="nav-ico">&#9638;</span> Stats</a>
+        <button class="nav-item vault-item vault-relock" id="relockBtn"><span class="nav-ico">&#128274;</span> Relock vault</button>
+      </div>
+
+      <div class="side-foot">
+        <button class="vault-entry" id="vaultEntry" title="Classified access">
+          <span class="vault-entry-ico">&#9671;</span>
+          <span class="vault-entry-txt">restricted zone</span>
+        </button>
+        <div class="conn" id="conn" title="Backend connection">
+          <span class="conn-dot" id="connDot"></span>
+          <span class="conn-label" id="connLabel">checking&hellip;</span>
+        </div>
+      </div>
+    </aside>
+
+    <div class="main">
+      <header class="topbar">
+        <div>
+          <h1 id="pageTitle">Dashboard</h1>
+          <div class="crumb" id="pageCrumb"></div>
+        </div>
+        <div class="topbar-right">
+          <div class="mode-chip" id="modeChip" hidden></div>
+          <div class="user-chip" id="userChip">
+            <span class="avatar" id="userAvatar">?</span>
+            <span class="user-meta">
+              <b id="userName">&hellip;</b>
+              <small id="userSub"></small>
+            </span>
+          </div>
+        </div>
+      </header>
+
+      <main id="view" class="view" tabindex="-1"></main>
+    </div>
+  </div>
+
+  <div id="toasts" class="toasts" aria-live="polite"></div>
+
+  <script src="js/demo.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

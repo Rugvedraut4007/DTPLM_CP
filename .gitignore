@@ -1,0 +1,32 @@
+# Java / Maven
+backend/target/
+*.class
+
+# Node / React frontend
+Frontend/node_modules/
+Frontend/dist/
+npm-debug.log*
+yarn-error.log*
+
+# IDE
+.vscode/
+.idea/
+*.iml
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+._*
+*.swp
+*.swo
+*~
+
+# Archives
+*.zip
+*.rar

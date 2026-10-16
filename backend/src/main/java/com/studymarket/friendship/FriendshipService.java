@@ -1,0 +1,10 @@
+package com.studymarket.friendship;
+import com.studymarket.user.*; import java.time.*; import java.util.*; import org.springframework.stereotype.Service; import org.springframework.transaction.annotation.Transactional;
+@Service public class FriendshipService{
+ private final FriendRequestRepository requests; private final UserRepository users; private final Clock clock;
+ public FriendshipService(FriendRequestRepository r,UserRepository u,Clock c){requests=r;users=u;clock=c;}
+ @Transactional public FriendRequest send(Long s,Long r){User sender=users.findById(s).orElseThrow(()->new IllegalArgumentException("User not found: "+s));User receiver=users.findById(r).orElseThrow(()->new IllegalArgumentException("User not found: "+r));if(s.equals(r))throw new IllegalArgumentException("Cannot friend yourself");if(requests.existsBySenderAndReceiverAndStatus(sender,receiver,"PENDING")||requests.existsBySenderAndReceiverAndStatus(receiver,sender,"PENDING"))throw new IllegalStateException("Duplicate pending friend request");return requests.save(new FriendRequest(sender,receiver));}
+ public List<User> friends(Long id){User user=users.findById(id).orElseThrow(()->new IllegalArgumentException("User not found: "+id));return requests.findAllBySenderOrReceiverAndStatus(user,user,"ACCEPTED").stream().map(r->r.getSender().getId().equals(id)?r.getReceiver():r.getSender()).toList();}
+ public List<FriendRequest> pending(Long id){User user=users.findById(id).orElseThrow(()->new IllegalArgumentException("User not found: "+id));return requests.findAllByReceiverAndStatusOrderByCreatedAtDesc(user,"PENDING");}
+ @Transactional public FriendRequest respond(Long requestId,Long userId,String status){FriendRequest request=requests.findById(requestId).orElseThrow(()->new IllegalArgumentException("Friend request not found: "+requestId));if(!request.getReceiver().getId().equals(userId))throw new IllegalStateException("Only the receiver can respond");request.respond(status,Instant.now(clock));return requests.save(request);}
+}

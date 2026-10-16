@@ -1,0 +1,22 @@
+{
+  "name": "studymarket-frontend",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "StudyMarket React frontend — talks to the Spring Boot backend in ../backend",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "mock-api": "node tools/mock-api.mjs"
+  },
+  "dependencies": {
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "react-router-dom": "^7.18.4"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.1.2",
+    "vite": "^8.3.4"
+  }
+}

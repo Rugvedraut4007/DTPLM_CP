@@ -1,0 +1,2 @@
+CREATE TABLE friend_requests(id BIGSERIAL PRIMARY KEY,sender_id BIGINT NOT NULL REFERENCES users(id),receiver_id BIGINT NOT NULL REFERENCES users(id),status VARCHAR(10) NOT NULL,created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,responded_at TIMESTAMP WITH TIME ZONE,CONSTRAINT friend_request_not_self CHECK(sender_id<>receiver_id));
+CREATE INDEX idx_friend_requests_receiver_status ON friend_requests(receiver_id,status);

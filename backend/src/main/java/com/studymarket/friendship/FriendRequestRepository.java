@@ -1,0 +1,3 @@
+package com.studymarket.friendship;
+import com.studymarket.user.User; import java.util.*; import org.springframework.data.jpa.repository.JpaRepository;
+public interface FriendRequestRepository extends JpaRepository<FriendRequest,Long>{boolean existsBySenderAndReceiverAndStatus(User s,User r,String status);List<FriendRequest> findAllByReceiverAndStatusOrderByCreatedAtDesc(User u,String status);List<FriendRequest> findAllBySenderOrReceiverAndStatus(User s,User r,String status);}

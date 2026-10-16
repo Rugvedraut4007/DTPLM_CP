@@ -1,0 +1,9 @@
+package com.studymarket.challenge;
+import static org.assertj.core.api.Assertions.*; import static org.mockito.ArgumentMatchers.any; import static org.mockito.Mockito.*;
+import com.studymarket.study.*; import com.studymarket.user.*; import java.time.*; import java.util.*; import org.junit.jupiter.api.*;
+class ChallengeServiceTest{
+ ChallengeRepository cr=mock(ChallengeRepository.class); UserChallengeRepository ur=mock(UserChallengeRepository.class); StudySessionRepository sr=mock(StudySessionRepository.class); UserRepository users=mock(UserRepository.class); User user=new User("a","a@e.com"); ChallengeService service;
+ @BeforeEach void set(){service=new ChallengeService(cr,ur,sr,users,Clock.fixed(Instant.parse("2026-09-21T12:00:00Z"),ZoneOffset.UTC));when(sr.findAllByUserAndStatus(user,"COMPLETED")).thenReturn(List.of());when(cr.findAllByActiveTrueOrderByIdAsc()).thenReturn(List.of(new Challenge("STUDY_60_MIN","x","x","STUDY_MINUTES",60,50,true)));when(ur.findByUserAndChallenge(any(),any())).thenReturn(Optional.empty());when(ur.save(any())).thenAnswer(i->i.getArgument(0));}
+ @Test void completedSessionUpdatesAndCapsChallenge(){StudySession s=new StudySession(user,mock(com.studymarket.asset.Asset.class),Instant.parse("2026-09-21T10:00:00Z"));s.complete(Instant.parse("2026-09-21T11:00:00Z"));service.evaluate(user,s);verify(ur).save(any(UserChallenge.class));}
+ @Test void incompleteClaimRejected(){when(users.findById(1L)).thenReturn(Optional.of(user));Challenge c=new Challenge("X","x","x","STUDY_MINUTES",60,1,true);when(cr.findById(1L)).thenReturn(Optional.of(c));when(ur.findByUserAndChallenge(user,c)).thenReturn(Optional.of(new UserChallenge(user,c)));assertThatThrownBy(()->service.claim(1L,1L)).isInstanceOf(IllegalStateException.class);}
+}
